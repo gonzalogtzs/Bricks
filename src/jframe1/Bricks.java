@@ -211,7 +211,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                 if (basPelota.intersecta(basBrick)){
 
-                    iCounter
+                    
                     iMoveY = - 3;
                     iMoveX = + 3;  
                     basBrick.setX(-100);
