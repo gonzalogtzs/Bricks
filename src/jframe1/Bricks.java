@@ -83,6 +83,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener {
             iCounterX+= 100;
             if (iCounterX >= 400) {
                 iCounterY += 100;
+                
                 iCounterX = 0;
             }
             Base basBrick = new Base(iPosX,iPosY,60,60,
