@@ -9,6 +9,7 @@
  */
 
 package jframe1;
+import java.applet.AudioClip;
 import java.awt.Color;
 import javax.swing.JFrame;
 import java.awt.Graphics;
@@ -23,6 +24,8 @@ import java.util.LinkedList;
 
 
 
+
+
 public class Bricks extends JFrame implements Runnable, KeyListener{
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maximo numero de personajes por alto
@@ -30,31 +33,16 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     private static final int iHeight = 800; //alto de la pantalla
     private Base basMalo;        // Objeto Bate
     private LinkedList <Base> lilBricks;   //Linkedlist de Bricks
-    
-    
-    
+    private SoundClip aucSonido1; 
     private Image    imaImagenApplet;   // 	
     private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
-  
-    
-    
-    
-    private boolean bVivo;
-    
-    //Variable de Direcciones
     private int iDireccion;
     private int iAcabar;
     private boolean bListo;
     private boolean bPerder2;
-    
-  
-    
-   
-    
-    
+ 
     private boolean bPause;    //Pausa
     
-
     private Base basPelota;
     private int iMoveX;
     private int iMoveY;
@@ -62,9 +50,10 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     private int iMovBola;
     private boolean bPerder;
     
-    
     public Bricks (){
        
+        
+        aucSonido1 = new SoundClip("sonido.wav");
         
         URL urlImagenBate = this.getClass().getResource("Calzon.gif");
         
@@ -79,9 +68,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
          iPosY = (iMAXALTO - 1) * iHeight / iMAXALTO;        
 	basPelota = new Base(iPosX,iPosY, 40,40,
                 Toolkit.getDefaultToolkit().getImage(urlImagenPelota));
-       
-        
-        
+    
         
         URL urlImagenBricks = this.getClass().getResource("azul1.gif");
         lilBricks = new LinkedList <Base> ();
@@ -113,8 +100,6 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         bPerder2 = true;
         
 
-        bVivo = true;
-        
         //Inicializando Pausa
         bPause = false;
         iAcabar = 0;
@@ -187,10 +172,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         basPelota.setY(basPelota.getY() - iMoveY);
         
         
-        //Velocidad de los fantasmas de 3-5 pixeles a la derecha
-       
         
-        //Velocidad de Juanitos dependen de las vidas
         
         
         
@@ -209,6 +191,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                     
                     iAcabar++;
+                    aucSonido1.play();
                     
 
                 } 
@@ -307,7 +290,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
                   } 
               
               if (basPelota.getY() > iHeight) {
-                bPerder = false;
+                
                 bPerder2 = false;
             }
 
@@ -360,7 +343,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         
      
     
-        /**
+        /*
      * update
      * 
      * Metodo sobrescrito de la clase <code>Applet</code>,
@@ -425,9 +408,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         if (!bPerder2) {
             graDibujo.setColor(Color.white);
             graDibujo.drawString("GAME OVER!!", 250, 200);
-            graDibujo.setColor(Color.white);
-            graDibujo.drawString("PRESIONA 'R' PARA VOLVER A INTENTARLO", 200, 
-                    500);
+            
         }
         
         if (iAcabar >= 12) {
@@ -436,10 +417,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         bListo = false;
         
         }
-        
-        
-
-
+       
         else {
                 //Da un mensaje mientras se carga el dibujo	
                 graDibujo.drawString("No se cargo la imagen..", 20, 20);
@@ -454,11 +432,11 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     @Override
     public void keyPressed(KeyEvent ke) {
         
-        if (ke.getKeyCode() == KeyEvent.VK_A) {    //Presiono flecha izquierda
+        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {    //Presiono flecha izquierda
             iDireccion = 3;
         } 
         
-        else if (ke.getKeyCode() == KeyEvent.VK_D) {    //Presiono flecha derecha
+        else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {    //Presiono flecha derecha
             iDireccion = 4;
         }
         else if (ke.getKeyCode() == KeyEvent.VK_R) {
@@ -466,12 +444,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
             bPerder2 = true;
             
         }
-        
-        
-         
-        
-        
-        
+  
         //Al presionar P se pausa el juego
         if (ke.getKeyCode() == KeyEvent.VK_P){
             bPause = !bPause;
@@ -483,11 +456,11 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent ke) {
-        if (ke.getKeyCode() == KeyEvent.VK_A) {    //Presiono flecha izquierda
+        if (ke.getKeyCode() == KeyEvent.VK_LEFT) {    //Presiono flecha izquierda
             iDireccion = 1;
         } 
         
-        else if (ke.getKeyCode() == KeyEvent.VK_D) {    //Presiono flecha derecha
+        else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {    //Presiono flecha derecha
             iDireccion = 1;
         }
     }
@@ -505,5 +478,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         juego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         juego.setVisible(true);
     }
+
+    
     
 }
