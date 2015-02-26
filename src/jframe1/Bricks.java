@@ -63,31 +63,31 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     public Bricks (){
        
         
-        URL urlImagenBate = this.getClass().getResource("Calzon.jpg");
+        URL urlImagenBate = this.getClass().getResource("Calzon.gif");
         
         int iPosX = (iMAXANCHO /2) * iWidth / iMAXANCHO;
         int iPosY = (iMAXALTO - 1) * iHeight / iMAXALTO;        
 	basMalo = new Base(iPosX,iPosY, 100,100,
                 Toolkit.getDefaultToolkit().getImage(urlImagenBate));
         
-        URL urlImagenPelota = this.getClass().getResource("Hank.jpg");
+        URL urlImagenPelota = this.getClass().getResource("Hanks.gif");
         
          iPosX = (iMAXANCHO /2) * iWidth / iMAXANCHO;
          iPosY = (iMAXALTO - 1) * iHeight / iMAXALTO;        
-	basPelota = new Base(iPosX,iPosY, 60,60,
+	basPelota = new Base(iPosX,iPosY, 40,40,
                 Toolkit.getDefaultToolkit().getImage(urlImagenPelota));
        
         
         
         
-        URL urlImagenBricks = this.getClass().getResource("azul1.jpg");
+        URL urlImagenBricks = this.getClass().getResource("azul1.gif");
         lilBricks = new LinkedList <Base> ();
         
         
         int iCounterX = 0;
         int iCounterY = 0;
         for (int iI = 0; iI < 12; iI++){
-            iPosX = 130 + iCounterX;  
+            iPosX = 110 + iCounterX;  
             iPosY = 40 + iCounterY;
             
             iCounterX+= 100;
@@ -95,7 +95,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
                 iCounterY += 100;
                 iCounterX = 0;
             }
-            Base basBrick = new Base(iPosX,iPosY,70,70,
+            Base basBrick = new Base(iPosX,iPosY,60,60,
             Toolkit.getDefaultToolkit().getImage(urlImagenBricks));
             lilBricks.add(basBrick);
         }
@@ -211,12 +211,13 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                 if (basPelota.intersecta(basBrick)){
 
-
+                    iCounter
                     iMoveY = - 3;
                     iMoveX = + 3;  
                     basBrick.setX(-100);
                     basBrick.setY(-100);
                     iMovBola = 2;
+                    
 
                 } 
           }
