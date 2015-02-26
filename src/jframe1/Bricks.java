@@ -26,7 +26,7 @@ import java.util.LinkedList;
 
 
 
-public class Bricks extends JFrame implements Runnable, KeyListener{
+public class Bricks extends JFrame implements Runnable, KeyListener {
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maximo numero de personajes por alto
     private static final int iWidth = 600; //ancho de la pantalla
