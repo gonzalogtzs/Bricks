@@ -28,12 +28,12 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     private final int iMAXALTO = 8;  // maximo numero de personajes por alto
     private static final int iWidth = 600; //ancho de la pantalla
     private static final int iHeight = 800; //alto de la pantalla
-    private Base basMalo;        // Objeto malo
-    private LinkedList <Base> lilBricks;   //Linkedlist de fantasmas
+    private Base basMalo;        // Objeto Bate
+    private LinkedList <Base> lilBricks;   //Linkedlist de Bricks
     
     
-    /* objetos para manejar el buffer del Applet y este no parpadee */
-    private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
+    
+    private Image    imaImagenApplet;   // 	
     private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
   
     
@@ -49,7 +49,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     
   
     
-    //Cantidad de juanitos que han chocado con Nena
+   
     
     
     private boolean bPause;    //Pausa
