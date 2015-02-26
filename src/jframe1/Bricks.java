@@ -43,6 +43,9 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
     
     //Variable de Direcciones
     private int iDireccion;
+    private int iAcabar;
+    private boolean bListo;
+    private boolean bPerder2;
     
   
     
@@ -101,17 +104,20 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
         }
         
         iDireccion = 0;
+        bListo = true;
         iMoveX = 3;
         iMoveY = 3;
         bPintar = true;
         iMovBola = 1;
-        bPerder = false;
+        bPerder = true;
+        bPerder2 = true;
         
 
         bVivo = true;
         
         //Inicializando Pausa
         bPause = false;
+        iAcabar = 0;
         
        
         
@@ -137,21 +143,25 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
            movimientos y se vuelve a pintar todo
         */ 
         
-        while (!bPerder) {
-            if(!bPause){
-                actualiza();
-                checaColision();
-            }
+        while (bPerder) {
+            
             repaint();
-            try	{
-                // El thread se duerme.
-                Thread.sleep (20);
-            }
-            catch (InterruptedException iexError) {
-                System.out.println("Hubo un error en el juego " + 
-                        iexError.toString());
-            }
-	}
+            
+                if(!bPause){
+                    actualiza();
+                    checaColision();
+                }
+                
+                try	{
+                    // El thread se duerme.
+                    Thread.sleep (20);
+                }
+                catch (InterruptedException iexError) {
+                    System.out.println("Hubo un error en el juego " + 
+                            iexError.toString());
+                }
+	
+       }
     }
 	
     /** 
@@ -193,7 +203,16 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
      * 
      */
     public void checaColision(){
-        
+        for (Base basBrick : lilBricks) {
+
+                if (basPelota.intersecta(basBrick)){
+
+                    
+                    iAcabar++;
+                    
+
+                } 
+          }
             
         if (basMalo.getX() < 0) {
             iDireccion = 0;
@@ -243,7 +262,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
             }
             if (basPelota.intersecta(basMalo)){
 
-
+                    
                     iMoveY = + 3;
                     iMoveX = + 3;  
                    
@@ -251,7 +270,8 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                 } 
             if (basPelota.getY() > iHeight) {
-                bPerder = true;
+               
+                bPerder2 = false;
             }
             
             
@@ -259,7 +279,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                 if (basPelota.intersecta(basBrick)){
 
-
+                   
                     iMoveY = + 3;
                     iMoveX = + 3;  
                     basBrick.setX(-100);
@@ -278,7 +298,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
               }
               if (basPelota.intersecta(basMalo)){
 
-
+                     
                       iMoveY = + 3;
                       iMoveX = - 3;  
                       
@@ -287,7 +307,8 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
                   } 
               
               if (basPelota.getY() > iHeight) {
-                bPerder = true;
+                bPerder = false;
+                bPerder2 = false;
             }
 
 
@@ -295,7 +316,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                   if (basPelota.intersecta(basBrick)){
 
-
+                      
                       iMoveY = + 3;
                       iMoveX = - 3;  
                       basBrick.setX(-100);
@@ -322,7 +343,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
 
                   if (basPelota.intersecta(basBrick)){
 
-
+                   
                       iMoveY = - 3;
                       iMoveX = - 3;  
                       basBrick.setX(-100);
@@ -384,7 +405,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
      */
     public void paint1 (Graphics graDibujo) {
       
-        if(!bPerder){
+        if(bPerder2 && bListo){
             
         
             if (basMalo != null && basPelota != null ) {
@@ -401,10 +422,22 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
             }
       }
         
-        if (bPerder) {
+        if (!bPerder2) {
             graDibujo.setColor(Color.white);
             graDibujo.drawString("GAME OVER!!", 250, 200);
+            graDibujo.setColor(Color.white);
+            graDibujo.drawString("PRESIONA 'R' PARA VOLVER A INTENTARLO", 200, 
+                    500);
         }
+        
+        if (iAcabar >= 12) {
+        
+        graDibujo.drawString("GANASTE!!!!!!", 250, 200);
+        bListo = false;
+        
+        }
+        
+        
 
 
         else {
@@ -429,7 +462,9 @@ public class Bricks extends JFrame implements Runnable, KeyListener{
             iDireccion = 4;
         }
         else if (ke.getKeyCode() == KeyEvent.VK_R) {
-            bPerder = false;
+            
+            bPerder2 = true;
+            
         }
         
         
