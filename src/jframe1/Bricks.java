@@ -55,7 +55,7 @@ public class Bricks extends JFrame implements Runnable, KeyListener {
         
         aucSonido1 = new SoundClip("sonido.wav");
         
-        URL urlImagenBate = this.getClass().getResource("Calzon.gif");
+        URL urlImagenBate = this.getClass().getResource("rect.gif");
         
         int iPosX = (iMAXANCHO /2) * iWidth / iMAXANCHO;
         int iPosY = (iMAXALTO - 1) * iHeight / iMAXALTO;        
